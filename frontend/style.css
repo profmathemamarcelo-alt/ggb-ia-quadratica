@@ -1,0 +1,224 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Página como canvas fixo, sem rolagem global */
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+/* App inteiro preso à janela */
+#app-container {
+  position: fixed;
+  inset: 0; /* top/right/bottom/left = 0 */
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px; /* menos padding => mais espaço pro GeoGebra */
+}
+
+/* -------- CABEÇALHO -------- */
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px; /* cabeçalho mais baixo */
+}
+
+/* título + subtítulo na MESMA linha */
+.header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap; /* se a tela for estreita, quebra bonitinho */
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 1.35rem; /* um pouco menor */
+}
+
+.header-left p {
+  margin: 0;
+  color: #555;
+  font-size: 0.92rem;
+}
+
+/* -------- MAIN: DUAS COLUNAS COM FLEX -------- */
+
+main {
+  flex: 1 1 auto;
+  min-height: 0;         /* permite o conteúdo interno encolher */
+  display: flex;
+  gap: 8px;              /* menos espaço entre GeoGebra e IA */
+}
+
+/* -------- COLUNA DO GEOGEBRA -------- */
+
+#ggb-section {
+  background: #fff;
+  border-radius: 14px;
+  padding: 4px;          /* menos borda = mais espaço pro applet */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;        /* pega todo o espaço que sobrar */
+  min-height: 0;
+}
+
+#ggb-element {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* conteúdo interno do applet ocupa tudo */
+#ggb-element iframe,
+#ggb-element > div {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* -------- COLUNA DA IA -------- */
+
+#ai-section {
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 320px;       /* largura da IA */
+  min-height: 0;
+  overflow: hidden;      /* impede vazar pra fora */
+}
+
+/* em telas bem grandes, IA fica um pouco mais estreita */
+@media (min-width: 1400px) {
+  #ai-section {
+    flex: 0 0 300px;
+  }
+}
+
+/* Painel interno da IA controla controles + chat + input */
+#ai-panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+#ai-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+/* -------- BOTÕES -------- */
+
+button {
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: #e0e5ff;
+}
+
+button.primary {
+  background: #4b6cff;
+  color: #fff;
+}
+
+button.ghost {
+  background: transparent;
+  border: 1px solid #c3c6ff;
+  color: #4b6cff;
+}
+
+button:hover {
+  opacity: 0.92;
+}
+
+/* -------- CHAT -------- */
+
+/* Só o chat rola; campo de entrada fica fixo lá embaixo */
+#chat-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;      /* rolagem interna aqui */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  background: #fafbff;
+}
+
+.chat-message {
+  margin-bottom: 6px;
+}
+
+.chat-message.user {
+  text-align: right;
+}
+
+.chat-message.user span {
+  background: #e0f7ff;
+}
+
+.chat-message.ai span {
+  background: #eef0ff;
+}
+
+.chat-message span {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+/* Campo de entrada SEMPRE visível no rodapé da IA */
+#chat-input-area {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-top: 6px;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+#user-message {
+  flex: 1;
+  resize: vertical;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+/* -------- RESPONSIVO -------- */
+
+@media (max-width: 900px) {
+  #app-container {
+    padding: 8px;
+  }
+
+  main {
+    flex-direction: column;
+  }
+
+  #ai-section {
+    flex: 0 0 auto;
+  }
+}

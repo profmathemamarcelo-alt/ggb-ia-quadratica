@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Função Quadrática + IA – Laboratório Interativo</title>
+
+    <!-- GeoGebra deploy script -->
+    <script
+      src="https://www.geogebra.org/apps/deployggb.js"
+      type="text/javascript"
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app-container">
+      <header>
+        <div class="header-left">
+          <h2>Função do 2º grau + IA
+                          
+          </h2> 
+          <p>
+             Explore a função quadrática no GeoGebra e converse com o tutor inteligente ao lado.    
+          </p>
+        </div>
+
+        
+      </header>
+
+      <main>
+        <section id="ggb-section">
+          <div id="ggb-element"></div>
+        </section>
+
+        <section id="ai-section">
+          <div id="ai-panel">
+            <div id="ai-controls">
+              <button data-mode="explain" class="primary">
+                Explicar a situação atual
+              </button>
+              <button data-mode="challenge">Gerar novo desafio</button>
+              <button data-mode="check">Corrigir minha resposta</button>
+            </div>
+
+            <div id="chat-log"></div>
+
+            <div id="chat-input-area">
+              <textarea
+                id="user-message"
+                rows="2"
+                placeholder="Pergunte algo sobre a função quadrática, ou escreva 'resetar'..."
+              ></textarea>
+              <button id="send-message" class="primary">Enviar pergunta</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
